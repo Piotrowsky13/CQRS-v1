@@ -494,5 +494,6 @@ obj/
 *.db
 *.sqlite
 *.pdb
+
 appsettings.Development.json
-appsettings.Local.json
+appsettings.json

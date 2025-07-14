@@ -12,13 +12,14 @@ namespace Mariusz.Piotrowski.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration) 
         {
-            services.AddDbContext<Context>(options => 
+            services.AddDbContext<Context>(options =>
                 options.UseSqlServer(configuration
-                    .GetConnectionString("DefaultConnection"), sqlServerOptionsAction => 
-                        sqlServerOptionsAction.MigrationsAssembly(typeof(Context).Assembly.FullName))
+                    .GetConnectionString("DefaultConnection"),
+                    sql => sql.MigrationsAssembly(typeof(Context).Assembly.FullName))
                 );
+            services.AddTransient<IRepository<Article>, ArticleRepository>();
+            services.AddTransient<IRepository<Category>, CategoryRepository>();
 
-            services.AddScoped<IRepository<Article>, ArticleRepository>();
             return services;
         }
     }

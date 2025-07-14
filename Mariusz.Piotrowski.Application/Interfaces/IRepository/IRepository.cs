@@ -16,6 +16,6 @@ namespace Mariusz.Piotrowski.Application.Interfaces.IRepository
         void Update(T entity);
         void DeleteById(T entity);
         Task<bool> ExistsAsync(Guid id);
-        Task<IEnumerable<Article>> FindAsync(Expression<Func<T, bool>> predicate);
+        Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
     }
 }

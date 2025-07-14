@@ -21,8 +21,7 @@ builder.Services.AddSwaggerGen(cfg =>
         Contact = new Microsoft.OpenApi.Models.OpenApiContact
         {
             Name = "Mariusz Piotrowski",
-            Email = "piotrowsky13@gmail.com",
-            Url = new Uri("https://localhost:7644")
+            Email = "piotrowsky13@gmail.com"
         }
     });
 });

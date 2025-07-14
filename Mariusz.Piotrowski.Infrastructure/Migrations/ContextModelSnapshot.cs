@@ -54,6 +54,21 @@ namespace Mariusz.Piotrowski.Infrastructure.Migrations
 
                     b.ToTable("Articles");
                 });
+
+            modelBuilder.Entity("Mariusz.Piotrowski.Domain.Entities.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
 #pragma warning restore 612, 618
         }
     }

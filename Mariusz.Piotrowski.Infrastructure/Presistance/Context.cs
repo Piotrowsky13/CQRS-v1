@@ -14,14 +14,18 @@ namespace Mariusz.Piotrowski.Infrastructure.Presistance
 {
     public class Context : DbContext
     {
-        public DbSet<Article> Articles { get; set; }
         public Context(DbContextOptions<Context> options) : base(options)
         {
         }
 
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ArticleConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+
             base.OnModelCreating(modelBuilder);
         }
     }
