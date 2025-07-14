@@ -14,8 +14,8 @@ namespace Mariusz.Piotrowski.Infrastructure
         {
             services.AddDbContext<Context>(options => 
                 options.UseSqlServer(configuration
-                    .GetConnectionString("DefaultConnection") ?? 
-                        throw new InvalidOperationException("Invalid connection string..."))
+                    .GetConnectionString("DefaultConnection"), sqlServerOptionsAction => 
+                        sqlServerOptionsAction.MigrationsAssembly(typeof(Context).Assembly.FullName))
                 );
 
             services.AddScoped<IRepository<Article>, ArticleRepository>();

@@ -2,21 +2,27 @@
 using FluentValidation.Results;
 using Mariusz.Piotrowski.Application.Common.Exceptions;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Mariusz.Piotrowski.Application.Common.Behaviours
 {
     public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+        where TRequest : class
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
+        private readonly ILogger<ValidationBehavior<TRequest, TResponse>> _logger;
 
-        public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
+        public ValidationBehavior(
+            IEnumerable<IValidator<TRequest>> validators,
+            ILogger<ValidationBehavior<TRequest, TResponse>> logger)
         {
             _validators = validators;
+            _logger = logger;
         }
 
         public async Task<TResponse> Handle(
@@ -36,7 +42,18 @@ namespace Mariusz.Piotrowski.Application.Common.Behaviours
                     .ToList();
 
                 if (failures.Any())
-                    throw new BadRequestException("Validation failed", new FluentValidation.Results.ValidationResult(failures));
+                {
+                    // Log validation errors
+                    foreach (var failure in failures)
+                    {
+                        _logger.LogWarning("Validation failure in {RequestType}: {PropertyName} failed validation. Error: {ErrorMessage}",
+                            typeof(TRequest).Name,
+                            failure.PropertyName,
+                            failure.ErrorMessage);
+                    }
+
+                    throw new BadRequestException("Validation failed", new ValidationResult(failures));
+                }
             }
 
             return await next();

@@ -25,13 +25,12 @@ namespace Mariusz.Piotrowski.Api.Controllers
             try
             {
                 await _mediator.Send(request);
+                return Ok();
             }
             catch (Exception ex) 
             {
-                BadRequest(ex.Message);
+                return BadRequest(ex.Message);
             }
-
-            return NoContent();
         }
 
         [HttpGet]
@@ -39,8 +38,7 @@ namespace Mariusz.Piotrowski.Api.Controllers
         {
             try
             {
-                var request = new GetAllArticlesQuery();
-                var result = await _mediator.Send(request);
+                var result = await _mediator.Send(new GetAllArticlesQuery());
 
                 return Ok(result);
             }

@@ -27,6 +27,7 @@ namespace Mariusz.Piotrowski.Infrastructure.Repository
         public async Task AddAsync(Article entity)
         {
             await _context.Articles.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
         public void Update(Article entity)

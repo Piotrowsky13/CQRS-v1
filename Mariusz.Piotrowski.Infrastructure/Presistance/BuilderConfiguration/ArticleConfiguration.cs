@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Mariusz.Piotrowski.Infrastructure.BuilderConfiguration
+namespace Mariusz.Piotrowski.Infrastructure.Presistance.BuilderConfiguration
 {
     public class ArticleConfiguration : IEntityTypeConfiguration<Article>
     {
@@ -11,7 +11,6 @@ namespace Mariusz.Piotrowski.Infrastructure.BuilderConfiguration
             builder.Property(x => x.Title)
                 .HasColumnType("nvarchar(100)")
                 .IsRequired();
-            builder.Property(x => x.Id).HasColumnType("Guid");
         }
     }
 }
