@@ -1,22 +1,29 @@
-version: '3.8'
+version: '3.9'
 
 services:
   sqlserver:
-    image: mcr.microsoft.com/mssql/server:2019-latest-windowsservercore-ltsc2019
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: sqlserver
     environment:
-      - SA_PASSWORD=YourStrong!Passw0rd
       - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong!Password123
     ports:
       - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
 
   webapi:
     build:
       context: .
       dockerfile: Mariusz.Piotrowski/Dockerfile
-    ports:
-      - "8080:8080"
-      - "8081:8081"
+    container_name: webapi
     depends_on:
       - sqlserver
+    ports:
+      - "5181:80"
     environment:
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=YourDb;User Id=sa;Password=YourStrong!Passw0rd;
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Default=Server=sqlserver;Database=MariuszDb;User Id=sa;Password=YourStrong!Password123;
+
+volumes:
+  sql_data:
