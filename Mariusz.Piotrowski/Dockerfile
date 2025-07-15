@@ -1,20 +1,25 @@
-# Etap build
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 5181
+
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
 
-# Kopiujemy wszystkie potrzebne foldery
-COPY ./Mariusz.Piotrowski ./Mariusz.Piotrowski
-COPY ./Mariusz.Piotrowski.Application ./Mariusz.Piotrowski.Application
-COPY ./Mariusz.Piotrowski.Infrastructure ./Mariusz.Piotrowski.Infrastructure
-COPY ./Mariusz.Piotrowski.Domain ./Mariusz.Piotrowski.Domain
+COPY ["./Mariusz.Piotrowski.sln", "."]
+COPY Mariusz.Piotrowski/ Mariusz.Piotrowski/
+COPY Mariusz.Piotrowski.Domain/ Mariusz.Piotrowski.Domain/
+COPY Mariusz.Piotrowski.Application/ Mariusz.Piotrowski.Application/
+COPY Mariusz.Piotrowski.Infrastructure/ Mariusz.Piotrowski.Infrastructure/
 
-WORKDIR /app/Mariusz.Piotrowski
+WORKDIR /src/Mariusz.Piotrowski
 RUN dotnet restore
-RUN dotnet publish -c Release -o out
+RUN dotnet build -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet publish -c $BUILD_CONFIGURATION -o /app/publish
 
-# Etap uruchomienia
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+FROM base AS final
 WORKDIR /app
-COPY --from=build /app/Mariusz.Piotrowski/out .
-
+COPY --from=build /app/publish .
+ENV ASPNETCORE_URLS=http://+:5181
 ENTRYPOINT ["dotnet", "Mariusz.Piotrowski.Api.dll"]
+
