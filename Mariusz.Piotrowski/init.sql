@@ -1,0 +1,5 @@
+CREATE DATABASE MariuszDb;
+GO
+
+USE MariuszDb;
+GO
