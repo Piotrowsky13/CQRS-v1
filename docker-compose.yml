@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3.8'
 
 services:
   sqlserver:
@@ -11,6 +11,18 @@ services:
       - "1433:1433"
     volumes:
       - sql_data:/var/opt/mssql
+      - ./init.sql:/usr/config/init.sql
+    command: >
+      /bin/bash -c "
+      /opt/mssql/bin/sqlservr & 
+      echo 'Waiting for SQL Server to start...'; 
+      for i in {1..30}; do 
+        /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong!Password123 -Q 'SELECT 1' > /dev/null 2>&1 && break; 
+        sleep 2; 
+      done; 
+      echo 'Running init.sql...'; 
+      /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong!Password123 -i /usr/config/init.sql; 
+      wait"
 
   webapi:
     build:
@@ -20,7 +32,7 @@ services:
     depends_on:
       - sqlserver
     ports:
-      - "5181:80"
+      - "5181:5181"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__Default=Server=sqlserver;Database=MariuszDb;User Id=sa;Password=YourStrong!Password123;
