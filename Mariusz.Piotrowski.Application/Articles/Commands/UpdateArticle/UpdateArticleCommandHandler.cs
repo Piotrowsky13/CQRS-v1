@@ -30,7 +30,8 @@ namespace Mariusz.Piotrowski.Application.Articles.Commands.UpdateArticle
 
             if (validationResult.Errors.Any()) 
             {
-                _logger.LogWarning($"Error while updating article {request.Title} with id={request.Id}");
+                _logger.LogWarning("Validation failed for article {Id}: {Errors}", request.Id,
+                        string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage)));
                 throw new BadRequestException("Invalid update Article requst", validationResult);
             }
 

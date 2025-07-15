@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Mariusz.Piotrowski.Domain.Entities
 {
-    public class Category
+    public class Category : BaseEntity
     {
-        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
+        public ICollection<Article> Articles { get; set; } = new List<Article>();
 
     }
 }

@@ -16,12 +16,18 @@ namespace Mariusz.Piotrowski.Infrastructure.Repository
 
         public async Task<IEnumerable<Article>> GetAllAsync()
         {
-            return await _context.Articles.ToListAsync();
+            return await _context.Articles
+                .AsNoTracking()
+                .Include(a => a.Category)
+                .ToListAsync();
         }
 
         public async Task<Article?> GetByIdAsync(Guid id)
         {
-            return await _context.Articles.FindAsync(id);
+            return await _context.Articles
+                .AsNoTracking()
+                .Include(a => a.Category)
+                .FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public async Task AddAsync(Article entity)
@@ -33,11 +39,13 @@ namespace Mariusz.Piotrowski.Infrastructure.Repository
         public void Update(Article entity)
         {
             _context.Articles.Update(entity);
+            _context.SaveChanges();
         }
 
         public void DeleteById(Article entity)
         {
             _context.Articles.Remove(entity);
+            _context.SaveChanges();
         }
 
         public async Task<bool> ExistsAsync(Guid id)

@@ -1,8 +1,10 @@
 ﻿using Mariusz.Piotrowski.Application.Articles.Commands.CreateArticle;
 using Mariusz.Piotrowski.Application.Articles.Commands.DeleteArticle;
+using Mariusz.Piotrowski.Application.Articles.Commands.PublishArticle;
 using Mariusz.Piotrowski.Application.Articles.Commands.UpdateArticle;
 using Mariusz.Piotrowski.Application.Articles.Queries.GetAllArticles;
 using Mariusz.Piotrowski.Application.Articles.Queries.GetArticleById;
+using Mariusz.Piotrowski.Application.Articles.Queries.GetArticleStats;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Validations;
@@ -20,14 +22,14 @@ namespace Mariusz.Piotrowski.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateArticle([FromBody] CreateArticleCommand request) 
+        public async Task<IActionResult> CreateArticle([FromBody] CreateArticleCommand request)
         {
             try
             {
                 await _mediator.Send(request);
                 return Ok();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -42,7 +44,7 @@ namespace Mariusz.Piotrowski.Api.Controllers
 
                 return Ok(result);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -56,7 +58,7 @@ namespace Mariusz.Piotrowski.Api.Controllers
                 var article = await _mediator.Send(new GetArticleByIdQuery(id));
                 return Ok(article);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -70,7 +72,7 @@ namespace Mariusz.Piotrowski.Api.Controllers
                 await _mediator.Send(request);
                 return Ok();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -89,6 +91,27 @@ namespace Mariusz.Piotrowski.Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPost("{id:Guid}/publish")]
+        public async Task<IActionResult> PublishArticle(Guid id)
+        {
+            try
+            {
+               await _mediator.Send(new PublishArticleCommand(id));
+               return Ok();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("stats")]
+        public async Task<IActionResult> GetAtriclesStats()
+        {
+            var articleStats = await _mediator.Send(new GetArticleStatsQuery());
+            return Ok(articleStats);
         }
     }
 }

@@ -18,17 +18,20 @@ namespace Mariusz.Piotrowski.Domain.Entities
         public string Author { get; set; } = string.Empty!;
         public string Slug { get; private set; } = string.Empty!;
         public Enums.Status Status { get; set; }
+        public Guid CategoryId { get; set; }
+        public Category? Category { get; set; }
 
-        public Article(string title, string content, string author, Enums.Status status) 
+        public Article(string title, string content, string author, string slug, Enums.Status status, Guid CategoryId) 
         {
             this.Title = title;
             this.Content = content;
             this.Author = author;
-            this.Slug = ToSlug(title);
             this.Status = status;
+            this.Slug = slug;
+            this.CategoryId = CategoryId;
         }
 
-        private static string ToSlug(string title) 
+        public static string ToSlug(string title) 
         {
             title = title.ToLower().Replace(" ", "-");
             title = Regex.Replace(title, @"[^a-z0-9\-]", "");

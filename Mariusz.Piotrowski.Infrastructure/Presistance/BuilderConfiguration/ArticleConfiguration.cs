@@ -11,6 +11,11 @@ namespace Mariusz.Piotrowski.Infrastructure.Presistance.BuilderConfiguration
             builder.Property(x => x.Title)
                 .HasColumnType("nvarchar(100)")
                 .IsRequired();
+
+            builder.HasOne(a => a.Category)
+                .WithMany(c => c.Articles)
+                .HasForeignKey(a => a.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -15,6 +15,10 @@ namespace Mariusz.Piotrowski.Infrastructure.Presistance.BuilderConfiguration
         {
             builder.Property(c => c.Name)
                 .IsRequired();
+
+            builder.HasMany(c => c.Articles)
+                .WithOne(a => a.Category)
+                .HasForeignKey(a => a.CategoryId);
         }
     }
 }

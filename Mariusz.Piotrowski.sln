@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36202.13 d17.14
+VisualStudioVersion = 17.14.36202.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mariusz.Piotrowski.Api", "Mariusz.Piotrowski\Mariusz.Piotrowski.Api.csproj", "{5D4D176C-72F4-49F9-8075-EE726BFB4D9F}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mariusz.Piotrowski.Domain", "Mariusz.Piotrowski.Domain\Mariusz.Piotrowski.Domain.csproj", "{7F534052-8E03-4C6C-8AE1-AB0520C8C085}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mariusz.Piotrowski.Infrastructure", "Mariusz.Piotrowski.Infrastructure\Mariusz.Piotrowski.Infrastructure.csproj", "{4FC0506D-21FC-4B8E-9A64-A95B035966AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mariusz.Piotrowski.Application.Tests", "Mariusz.Piotrowski.Application.Tests\Mariusz.Piotrowski.Application.Tests.csproj", "{53A78296-868F-4899-98BD-732A02F151EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{4FC0506D-21FC-4B8E-9A64-A95B035966AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FC0506D-21FC-4B8E-9A64-A95B035966AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FC0506D-21FC-4B8E-9A64-A95B035966AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53A78296-868F-4899-98BD-732A02F151EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53A78296-868F-4899-98BD-732A02F151EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53A78296-868F-4899-98BD-732A02F151EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53A78296-868F-4899-98BD-732A02F151EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{7F099148-A8EF-487B-9DA9-CFABA5BAB676} = {9A5F7607-0C81-4019-964F-6697FB5D9278}
 		{7F534052-8E03-4C6C-8AE1-AB0520C8C085} = {ED59D75A-FFEB-468B-95E0-62F3A12001CD}
 		{4FC0506D-21FC-4B8E-9A64-A95B035966AB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{53A78296-868F-4899-98BD-732A02F151EA} = {9A5F7607-0C81-4019-964F-6697FB5D9278}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {44449571-2E5F-4DB3-A498-DBD08C6FE08B}

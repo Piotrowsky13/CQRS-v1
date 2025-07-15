@@ -13,7 +13,7 @@ namespace Mariusz.Piotrowski.Application.Categories.Commands.CreateCategory
         public CreateCategoryCommandValidator()
         {
             RuleFor(x => x.Name)
-                .NotNull().WithMessage("Category name cannot be empty.");
+                .NotEmpty().WithMessage("Category name cannot be empty.");
         }
     }
 }

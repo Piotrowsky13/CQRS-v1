@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Mariusz.Piotrowski.Application.Common.Exceptions;
+using Mariusz.Piotrowski.Application.Common.Helpers;
 using Mariusz.Piotrowski.Application.Interfaces.IRepository;
 using Mariusz.Piotrowski.Domain.Entities;
 using MediatR;
@@ -34,7 +35,9 @@ namespace Mariusz.Piotrowski.Application.Articles.Commands.CreateArticle
                 throw new BadRequestException("Invalid Article request", validationResult);
             }
 
-            var article = new Article(request.Title, request.Content, request.Author, Domain.Enums.Status.Draft);
+            var slug = await _articleRepository.GenerateSlugAsync(request.Title);
+
+            var article = new Article(request.Title, request.Content, request.Author, slug, Domain.Enums.Status.Draft, request.CategoryId);
 
             await _articleRepository.AddAsync(article);
 

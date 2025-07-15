@@ -19,6 +19,7 @@ namespace Mariusz.Piotrowski.Infrastructure
                 );
             services.AddTransient<IRepository<Article>, ArticleRepository>();
             services.AddTransient<IRepository<Category>, CategoryRepository>();
+            services.AddTransient<IStatsRepository, StatsRepository>();
 
             return services;
         }
