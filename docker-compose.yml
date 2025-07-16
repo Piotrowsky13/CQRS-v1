@@ -21,7 +21,7 @@ services:
         sleep 2; 
       done; 
       echo 'Running init.sql...'; 
-      /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong!Password123 -i /usr/config/init.sql; 
+      /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong!Password123 -i /usr/config/Mariusz.Piotrowski/init.sql; 
       wait"
 
   webapi:
