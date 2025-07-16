@@ -36,6 +36,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__Default=Server=sqlserver;Database=MariuszDb;User Id=sa;Password=YourStrong!Password123;
+    links:
+      - sqlserver
 
 volumes:
   sql_data:
